@@ -32,15 +32,12 @@ class PlayingPageState extends State<PlayingPage> {
   @override
   void initState() {
     super.initState();
-
-    AudioPlayer.logEnabled = true;
     audioPlayer = Applicaton.audioPlayer;
-
     audioPlayer.durationHandler = (Duration d) {
       setState(() {
         isPlaying = true;
-        PlayerProvider.of(context).stateUpdater.add(PlayerState.playing);
-        PlayerProvider.of(context).durationUpdater.add(d.inSeconds);
+        PlayerProvider.of(context).stateUpdater.add(
+            PlayerState(state: ControlState.playing, duration: d.inSeconds));
         duration = d.inSeconds;
       });
     };
@@ -54,6 +51,10 @@ class PlayingPageState extends State<PlayingPage> {
     audioPlayer.completionHandler = () {
       setState(() {
         isPlaying = false;
+        PlayerProvider
+            .of(context)
+            .stateUpdater
+            .add(PlayerState(state: ControlState.playing, duration: 1));
       });
     };
   }
@@ -74,11 +75,13 @@ class PlayingPageState extends State<PlayingPage> {
       ),
       body: StreamBuilder<PlayerInfo>(
         stream: player.playlist,
-        initialData:
-            PlayerInfo(state: PlayerState.normal, playlist: Mock.playlist),
+        initialData: PlayerInfo(
+            state: PlayerState(state: ControlState.normal, duration: 1),
+            playlist: Mock.playlist),
         builder: (context, snapshot) {
           this.playlist = snapshot.data.playlist;
-          this.duration = snapshot.data.duration;
+          this.duration = snapshot.data.state.duration;
+          print("\\\\\\\\\\\\\\\\\\${snapshot.data.state}");
 
           final PodcastItem first = snapshot.data.playlist.isEmpty
               ? null
@@ -105,7 +108,7 @@ class PlayingPageState extends State<PlayingPage> {
                   onPlay: onPlay,
                   onNext: onNext,
                   onRewind: onRewind,
-                  isPlaying: snapshot.data.state == PlayerState.playing,
+                  isPlaying: snapshot.data.state.state == ControlState.playing,
                 ),
                 PlaylistWidget(snapshot.data.playlist),
               ],
@@ -129,7 +132,10 @@ class PlayingPageState extends State<PlayingPage> {
       int result = await audioPlayer.pause();
       if (result == 1) {
         print("pause..");
-        PlayerProvider.of(context).stateUpdater.add(PlayerState.pause);
+        PlayerProvider
+            .of(context)
+            .stateUpdater
+            .add(PlayerState(state: ControlState.pause, duration: duration));
         setState(() {
           isPlaying = false;
         });

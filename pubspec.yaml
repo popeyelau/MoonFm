@@ -19,6 +19,10 @@ dependencies:
   audioplayers: "^0.6.0"
   pull_to_refresh: "^1.1.5"
   rxdart: "^0.18.1"
+  redux: "^3.0.0"
+  flutter_redux: "^0.5.2"
+
+
 
 
 dev_dependencies:
