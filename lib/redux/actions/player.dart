@@ -8,8 +8,13 @@ class AddToList extends ActionType {
 }
 
 class UpdateDuration extends ActionType {
-  @override
   String get type => ReduxActions.updateDuration;
   final int payload;
   UpdateDuration({this.payload});
+}
+
+class PlayNow extends ActionType {
+  String get type => ReduxActions.playNow;
+  final PodcastItem payload;
+  PlayNow({this.payload});
 }

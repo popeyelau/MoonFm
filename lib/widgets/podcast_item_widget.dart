@@ -24,15 +24,15 @@ class PodcastItemWidget extends StatelessWidget {
           FXRightSideButton(
               icon: Icons.playlist_add,
               iconColor: Colors.blue,
-              onPress: () => PlayerProvider.of(context).podcasts.add(item)),
+              onPress: () => {}),
           FXRightSideButton(
               icon: Icons.file_download,
               iconColor: Colors.green,
-              onPress: () => PlayerProvider.of(context).podcasts.add(item)),
+              onPress: () => {}),
           FXRightSideButton(
               icon: Icons.star,
               iconColor: Colors.yellow[600],
-              onPress: () => PlayerProvider.of(context).podcasts.add(item)),
+              onPress: () => {}),
         ],
         child: Container(
           child: PodcastInfoWidget(item),

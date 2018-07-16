@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:moonfm/config/App.dart';
 import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/page/login_page.dart';
-import 'package:moonfm/page/playing_page.dart';
+import 'package:moonfm/page/player_page.dart';
 import 'package:moonfm/page/podcast_list_page.dart';
 import 'package:moonfm/page/redux_page.dart';
 import 'package:moonfm/page/search_page.dart';
@@ -14,16 +13,13 @@ import 'package:moonfm/redux/states/main.dart';
 import 'package:redux/redux.dart';
 
 void main() {
-  final bloc = PlayerBloc();
-  runApp(new MyApp(
-    bloc: bloc,
-  ));
+  final Store<ReduxState> store = reduxStore();
+  runApp(new MyApp(store: store));
 }
 
 class MyApp extends StatelessWidget {
-  final PlayerBloc bloc;
-  final Store<ReduxState> store = reduxStore();
-  MyApp({this.bloc});
+  final Store<ReduxState> store;
+  MyApp({this.store});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -39,7 +35,7 @@ class MyApp extends StatelessWidget {
           '/home': (BuildContext context) => TabsPage(),
           '/settings': (BuildContext context) => SettingsPage(),
           "/search": (BuildContext context) => SearchPage(),
-          "/play": (BuildContext context) => PlayingPage()
+          "/play": (BuildContext context) => PlayerPage()
         },
       ),
     );

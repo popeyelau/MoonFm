@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
         child: IconListTile(value, Theme.of(context).backgroundColor),
         onTap: () {
           Navigator.of(context).pop();
-          PlayerProvider.of(context).podcasts.add(item);
           Scaffold.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).dialogBackgroundColor,

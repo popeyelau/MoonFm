@@ -5,10 +5,11 @@ import 'package:moonfm/models/PodcastItem.dart';
 class PlayerState {
   final List<PodcastItem> playlist;
   final int duration;
+  final PodcastItem playing;
 
-  PlayerState({this.playlist, this.duration});
+  PlayerState({this.playlist, this.duration, this.playing});
 
-  PlayerState copyWith({List<PodcastItem> playlist, int duration}) {
+  PlayerState copyWith({List<PodcastItem> playlist, int duration, PodcastItem playing}) {
     return PlayerState(
         playlist: playlist ?? this.playlist,
         duration: duration ?? this.duration);
@@ -16,5 +17,6 @@ class PlayerState {
 
   PlayerState.initialState()
       : playlist = [],
-        duration = 0;
+        duration = 0,
+        playing = null;
 }

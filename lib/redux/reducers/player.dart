@@ -8,10 +8,10 @@ PlayerState reducer(ReduxState state, ActionType action) {
   switch (action.type) {
     case ReduxActions.addToList:
       return player.copyWith(playlist: player.playlist..add(action.payload));
-      break;
     case ReduxActions.updateDuration:
       return player.copyWith(duration: player.duration + action.payload);
-      break;
+    case ReduxActions.playNow:
+      return player.copyWith(playing: action.payload);
     default:
       return player;
   }

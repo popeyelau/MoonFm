@@ -14,4 +14,5 @@ class VoidAction extends ActionType {
 class ReduxActions {
   static const String addToList = "__addToList__";
   static const String updateDuration = "__updateDuration__";
+  static const String playNow = "__playNow__";
 }
