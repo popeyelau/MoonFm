@@ -52,8 +52,7 @@ class PodcastGroupWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = items[index];
                   return Container(
-                    // color: index % 2 == 0 ? Colors.grey[50] : Colors.white,
-                    color: index % 2 == 0
+                    color: index.isEven
                         ? Theme.of(context).canvasColor
                         : Theme.of(context).cardColor,
                     child: ListTile(

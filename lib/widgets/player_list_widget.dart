@@ -8,19 +8,19 @@ class PlaylistWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 64.0 * playlist.length + 17.0,
       child: Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
         elevation: 0.0,
         margin: EdgeInsets.all(8.0),
         child: ListView.builder(
+          shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           itemExtent: 64.0,
           itemBuilder: (context, index) {
             final item = playlist[index];
             return Container(
-              color: index % 2 == 0
+              color: index.isEven
                   ? Theme.of(context).canvasColor
                   : Theme.of(context).cardColor,
               child: GestureDetector(

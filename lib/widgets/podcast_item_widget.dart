@@ -15,7 +15,7 @@ class PodcastItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> contents = [];
-    if (index % 2 == 0) contents.add(DateWidget(month: "Jul", date: "13"));
+    if (index.isEven) contents.add(DateWidget(month: "Jul", date: "13"));
 
     contents.add(Expanded(
       child: FXLeftSlide(

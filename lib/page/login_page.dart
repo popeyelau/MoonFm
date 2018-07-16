@@ -49,18 +49,21 @@ class LoginPage extends StatelessWidget {
                   ),
                   Container(
                       margin: EdgeInsets.only(bottom: 60.0),
-                      child: RichText(
-                        text: TextSpan(
-                            text: "No Accounts?  ",
-                            style:
-                                TextStyle(color: Colors.grey, fontSize: 12.0),
-                            children: [
-                              TextSpan(
-                                text: "Sign Up",
-                                style: TextStyle(
-                                    color: Colors.blue, fontSize: 12.0),
-                              )
-                            ]),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: RichText(
+                          text: TextSpan(
+                              text: "No Accounts?  ",
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 12.0),
+                              children: [
+                                TextSpan(
+                                  text: "Sign Up",
+                                  style: TextStyle(
+                                      color: Colors.blue, fontSize: 12.0),
+                                )
+                              ]),
+                        ),
                       ))
                 ],
               ),

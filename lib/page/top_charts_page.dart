@@ -11,7 +11,7 @@ class TopChartsPage extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = Mock.topCharts[index];
         return Container(
-          color: index % 2 == 0
+          color: index.isEven
               ? Theme.of(context).canvasColor
               : Theme.of(context).cardColor,
           child: ListTile(

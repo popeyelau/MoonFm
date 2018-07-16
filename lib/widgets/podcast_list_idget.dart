@@ -11,9 +11,9 @@ class PodcastListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Mock.home.length * 90.0,
       child: ListView.builder(
         itemExtent: 90.0,
+        shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         itemBuilder: (context, index) {
           return PodcastItemWidget(

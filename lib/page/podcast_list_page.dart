@@ -29,7 +29,7 @@ class PodcastListPage extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = list[index];
           return Container(
-            color: index % 2 == 0
+            color: index.isEven
                 ? Theme.of(context).canvasColor
                 : Theme.of(context).cardColor,
             child: ListTile(

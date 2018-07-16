@@ -19,7 +19,7 @@ class PodcastPage extends StatelessWidget {
           final item = Mock.podcastTypes[index];
           return Container(
             padding: EdgeInsets.all(8.0),
-            color: index % 2 == 0
+            color: index.isEven
                 ? Theme.of(context).canvasColor
                 : Theme.of(context).cardColor,
             child: Row(
