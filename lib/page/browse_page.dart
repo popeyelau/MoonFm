@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/page/live_radio_page.dart';
 import 'package:moonfm/page/podcast_page.dart';
+import 'package:moonfm/widgets/appbar.dart';
 import 'package:moonfm/widgets/floating_indicator.dart';
 
 class BrowsePage extends StatefulWidget {
@@ -29,15 +30,10 @@ class _BrowsePageState extends State<BrowsePage>
 
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
-        appBar: AppBar(
-          iconTheme: Theme.of(context).iconTheme,
-          backgroundColor: Theme.of(context).backgroundColor,
-          title: Text(
-            "Browse",
-            style: Theme.of(context).textTheme.title,
-          ),
+        appBar: customAppBar(
+          context,
+          title: "Browse",
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -48,8 +44,6 @@ class _BrowsePageState extends State<BrowsePage>
               },
             )
           ],
-          elevation: 0.0,
-          centerTitle: false,
         ),
         body: DefaultTabController(
           length: 2,

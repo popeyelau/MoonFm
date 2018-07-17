@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moonfm/models/PodcastItem.dart';
 import 'package:moonfm/page/podcast_about_page.dart';
 import 'package:moonfm/page/result_page.dart';
+import 'package:moonfm/widgets/appbar.dart';
 
 class PodcastInfoPage extends StatefulWidget {
   final PodcastItem podcast;
@@ -30,12 +31,7 @@ class PodcastInfoPageState extends State<PodcastInfoPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: Theme.of(context).iconTheme,
-        backgroundColor: Theme.of(context).backgroundColor,
-        title: Text(widget.podcast.title, style: Theme.of(context).textTheme.title,),
-        elevation: .0,
-      ),
+      appBar: customAppBar(context, title: widget.podcast.title),
       body: Container(
         child: DefaultTabController(
           length: 2,

@@ -6,6 +6,7 @@ import 'package:moonfm/page/podcast_info_page.dart';
 import 'package:moonfm/redux/actions/home.dart';
 import 'package:moonfm/redux/actions/player.dart';
 import 'package:moonfm/redux/main.dart';
+import 'package:moonfm/widgets/appbar.dart';
 import 'package:moonfm/widgets/fetch_state_widget.dart';
 import 'package:moonfm/widgets/floating_indicator.dart';
 import 'package:moonfm/widgets/home_bar_widget.dart';
@@ -44,14 +45,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final pinned = offsetY >= 76.0;
     return new Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Theme.of(context).backgroundColor,
-          title: Text(
-            "Moon FM",
-            style: Theme.of(context).textTheme.title,
-          ),
-          centerTitle: false,
+        appBar: customAppBar(
+          context,
+          title: "Moon FM",
         ),
         body: Container(
           margin: EdgeInsets.all(0.0),

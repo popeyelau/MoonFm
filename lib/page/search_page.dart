@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/page/search_result_page.dart';
+import 'package:moonfm/widgets/appbar.dart';
 import 'package:moonfm/widgets/search_bar_widget.dart';
 
 class SearchPage extends StatefulWidget {
@@ -29,14 +30,10 @@ class SearchPageState extends State<SearchPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
-          elevation: .0,
-          title: Text(
-            "Search",
-            style: Theme.of(context).textTheme.title,
-          ),
-          iconTheme: Theme.of(context).iconTheme),
+      appBar: customAppBar(
+        context,
+        title: "Search",
+      ),
       body: Container(
         child: Column(
           children: <Widget>[

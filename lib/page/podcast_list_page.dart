@@ -4,6 +4,7 @@ import 'package:moonfm/models/Mock.dart';
 import 'package:moonfm/models/PodcastItem.dart';
 import 'package:moonfm/redux/states/main.dart';
 import 'package:moonfm/redux/view_models/app.dart';
+import 'package:moonfm/widgets/appbar.dart';
 import 'package:moonfm/widgets/empty_widget.dart';
 import 'package:redux/redux.dart';
 
@@ -14,16 +15,10 @@ class PodcastListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          backgroundColor: Theme.of(context).backgroundColor,
-          title: Text(
-            title,
-            style: Theme.of(context).textTheme.title,
-          ),
-          elevation: 0.0,
+        appBar: customAppBar(
+          context,
+          title: title,
         ),
         body: StoreConnector<ReduxState, AppViewModel>(
           converter: (Store<ReduxState> store) => AppViewModel(store),

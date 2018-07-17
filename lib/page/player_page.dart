@@ -7,6 +7,7 @@ import 'package:moonfm/redux/actions/player.dart';
 import 'package:moonfm/redux/main.dart';
 import 'package:moonfm/redux/states/main.dart';
 import 'package:moonfm/redux/view_models/player.dart';
+import 'package:moonfm/widgets/appbar.dart';
 import 'package:moonfm/widgets/cover_widget.dart';
 import 'package:moonfm/widgets/play_bar_widget.dart';
 import 'package:moonfm/widgets/player_list_widget.dart';
@@ -42,10 +43,8 @@ class PlayerPageState extends State<PlayerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          iconTheme: IconThemeData(color: Colors.lightBlue),
+        appBar: customAppBar(
+          context
         ),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.0),

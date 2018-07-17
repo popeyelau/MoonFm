@@ -3,6 +3,7 @@ import 'package:moonfm/models/Mock.dart';
 import 'package:moonfm/redux/states/main.dart';
 import 'package:moonfm/redux/view_models/player.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:moonfm/widgets/appbar.dart';
 import 'package:redux/redux.dart';
 
 class ReduxPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class ReduxPage extends StatelessWidget {
       converter: (Store<ReduxState> store) => PlayerViewModel(store),
       builder: (BuildContext context, PlayerViewModel vm) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: customAppBar(context),
           body: Column(
             children: <Widget>[
               Text("Duration: ${vm.duration}"),

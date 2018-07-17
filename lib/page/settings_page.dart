@@ -4,20 +4,13 @@ import 'package:moonfm/models/Mock.dart';
 import 'package:moonfm/models/RowItem.dart';
 import 'package:moonfm/redux/actions/home.dart';
 import 'package:moonfm/redux/main.dart';
+import 'package:moonfm/widgets/appbar.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: Theme.of(context).iconTheme,
-          elevation: 0.0,
-          title: Text(
-            "Settings",
-            style: Theme.of(context).textTheme.title,
-          ),
-          backgroundColor: Theme.of(context).backgroundColor,
-        ),
+        appBar: customAppBar(context, title: "Settings"),
         body: Container(
           child: ListView(
             children: Mock.settings.keys.map((key) {

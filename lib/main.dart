@@ -27,12 +27,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return StoreProvider<ReduxState>(
         store: store,
         child: StoreConnector<ReduxState, AppViewModel>(
           converter: (Store<ReduxState> store) => AppViewModel(store),
           builder: (BuildContext context, AppViewModel vm) {
-            SystemChrome.setSystemUIOverlayStyle(vm.overlayStyle);
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: AppTheme.buildThemeData(theme: vm.theme),

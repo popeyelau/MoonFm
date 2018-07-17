@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/page/featured_page.dart';
 import 'package:moonfm/page/top_charts_page.dart';
+import 'package:moonfm/widgets/appbar.dart';
 import 'package:moonfm/widgets/floating_indicator.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -30,14 +31,9 @@ class _DiscoverPageState extends State<DiscoverPage>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
-          elevation: 0.0,
-          title: Text(
-            "Discover",
-            style: Theme.of(context).textTheme.title,
-          ),
-          centerTitle: false,
+        appBar: customAppBar(
+          context,
+          title: "Discover",
           bottom: TabBar(
             controller: controller,
             labelColor: Theme.of(context).textTheme.title.color,

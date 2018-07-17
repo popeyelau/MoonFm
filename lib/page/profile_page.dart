@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/models/Mock.dart';
 import 'package:moonfm/models/ProfileRow.dart';
+import 'package:moonfm/widgets/appbar.dart';
 import 'package:moonfm/widgets/floating_indicator.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,17 +21,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          backgroundColor: Theme.of(context).backgroundColor,
-          title: Text(
-            "Profile",
-            style: Theme.of(context).textTheme.title,
-          ),
-          elevation: 0.0,
-        ),
+        appBar: customAppBar(context, title: "Profile"),
         body: Container(
           child: ListView(
             children: Mock.profileSections
