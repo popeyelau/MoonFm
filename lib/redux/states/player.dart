@@ -32,7 +32,7 @@ class PlayerState {
   }
 
   PlayerState.initialState()
-      : playlist = [],
+      : playlist = Mock.playlist,
         duration = 0,
         playedDuration = 0,
         playing = Mock.playlist[0],
