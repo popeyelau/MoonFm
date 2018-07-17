@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:moonfm/models/PodcastItem.dart';
 
 class PlayBarWidget extends StatelessWidget {
   final bool pinned;
   final bool showCover;
-  final VoidCallback onPlay;
+  final Function onPlay;
   final VoidCallback onNext;
   final VoidCallback onRewind;
   final bool isPlaying;
+  final PodcastItem playing;
 
   PlayBarWidget(
       {this.pinned = false,
+      this.playing,
       this.showCover = true,
       this.isPlaying = false,
       this.onPlay,
@@ -47,7 +50,7 @@ class PlayBarWidget extends StatelessWidget {
                         color: Colors.blue,
                         size: 34.0,
                       ),
-                      onPressed: onPlay),
+                      onPressed: () => onPlay(playing)),
                   IconButton(
                       icon: Icon(Icons.fast_forward, color: Colors.blue[200]),
                       onPressed: onNext),

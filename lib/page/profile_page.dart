@@ -20,15 +20,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(AppTheme.bloc.systemUiOverlayStyle);
 
     return new Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          brightness:
-              AppTheme.bloc.systemUiOverlayStyle == SystemUiOverlayStyle.light
-                  ? Brightness.dark
-                  : Brightness.light,
           backgroundColor: Theme.of(context).backgroundColor,
           title: Text(
             "Profile",

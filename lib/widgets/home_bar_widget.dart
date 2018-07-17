@@ -10,7 +10,9 @@ class HomeBarWidget extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: Mock.homeBanners.map((i) {
           return GestureDetector(
-            onTap: () => Navigator.of(context).pushNamed("/list"),
+            onTap: () {
+              Navigator.of(context).pushNamed(i.route);
+            },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.45,
               child: Card(
@@ -32,7 +34,6 @@ class HomeBarWidget extends StatelessWidget {
                     Expanded(
                         child: Text(
                       i.title,
-                      style: Theme.of(context).accentTextTheme.body2,
                     ))
                   ],
                 ),

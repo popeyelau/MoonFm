@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/models/PodcastItem.dart';
+import 'package:moonfm/redux/main.dart';
 
 class PodcastInfoWidget extends StatelessWidget {
   final PodcastItem item;
@@ -8,12 +9,12 @@ class PodcastInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        StoreContainer.global.state.app.theme != Themes.light;
     return Container(
       child: Card(
         elevation: 0.0,
-        color: AppTheme.bloc.isDarkMode
-            ? Color(0xff131313)
-            : Theme.of(context).cardColor,
+        color: isDarkMode ? Color(0xff131313) : Theme.of(context).cardColor,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
         margin: EdgeInsets.all(8.0),

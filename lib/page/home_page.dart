@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:moonfm/config/App.dart';
 import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/models/Mock.dart';
 import 'package:moonfm/models/PodcastItem.dart';
+import 'package:moonfm/page/podcast_info_page.dart';
+import 'package:moonfm/redux/actions/home.dart';
+import 'package:moonfm/redux/actions/player.dart';
+import 'package:moonfm/redux/main.dart';
 import 'package:moonfm/widgets/fetch_state_widget.dart';
 import 'package:moonfm/widgets/floating_indicator.dart';
 import 'package:moonfm/widgets/home_bar_widget.dart';
@@ -40,14 +42,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(AppTheme.bloc.systemUiOverlayStyle);
     final pinned = offsetY >= 76.0;
     return new Scaffold(
         appBar: AppBar(
-          brightness:
-              AppTheme.bloc.systemUiOverlayStyle == SystemUiOverlayStyle.light
-                  ? Brightness.dark
-                  : Brightness.light,
           elevation: 0.0,
           backgroundColor: Theme.of(context).backgroundColor,
           title: Text(
@@ -96,6 +93,28 @@ class _HomePageState extends State<HomePage> {
         child: IconListTile(value, Theme.of(context).backgroundColor),
         onTap: () {
           Navigator.of(context).pop();
+          switch (value.title) {
+            case "Play Now":
+              StoreContainer.global.dispatch(PlayNow(payload: item));
+              break;
+            case "Play Next":
+              StoreContainer.global.dispatch(PlayNext(payload: item));
+              break;
+            case "Play Later":
+              StoreContainer.global.dispatch(AddToList(payload: item));
+              break;
+            case "Save Episode":
+              StoreContainer.global.dispatch(AddToDownload(payload: item));
+              break;
+            case "Favorite":
+              StoreContainer.global.dispatch(AddToFavorite(payload: item));
+              break;
+            case "Share Episode":
+              break;
+            default:
+              break;
+          }
+
           Scaffold.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).dialogBackgroundColor,
@@ -111,22 +130,67 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (context) {
           return SimpleDialog(
-              titlePadding: EdgeInsets.all(0.0),
+              titlePadding: EdgeInsets.all(8.0),
               contentPadding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-              title: Stack(
-                alignment: Alignment(1.0, 0.0),
-                children: <Widget>[
-                  Positioned(
-                      child: IconButton(
-                    icon: Icon(
-                      Icons.close,
-                      color: Theme.of(context).accentColor.withAlpha(200),
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ))
-                ],
+              title: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PodcastInfoPage(
+                              podcast: item,
+                            )),
+                  );
+                },
+                child: Stack(
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        _buildDialogHeader(item),
+                        Text(
+                          item.subtitle,
+                          style: Theme.of(context).textTheme.body2,
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
               children: children);
         });
+  }
+
+  Widget _buildDialogHeader(PodcastItem item) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Row(
+            children: <Widget>[
+              Container(
+                  width: 30.0,
+                  height: 30.0,
+                  margin: EdgeInsets.only(right: 8.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    image: DecorationImage(
+                        fit: BoxFit.cover, image: NetworkImage(item.cover)),
+                  )),
+              Text(
+                item.title,
+                style: Theme.of(context).textTheme.body1,
+              )
+            ],
+          ),
+        ),
+        IconButton(
+            icon: Icon(
+              Icons.close,
+              color: Theme.of(context).accentColor,
+            ),
+            onPressed: () => Navigator.of(context).pop())
+      ],
+    );
   }
 }

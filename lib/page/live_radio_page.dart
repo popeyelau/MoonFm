@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/models/Mock.dart';
 
 class LiveRadioPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(AppTheme.bloc.systemUiOverlayStyle);
     return Container(
       margin: EdgeInsets.only(top: 8.0),
       child: ListView.builder(

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:moonfm/config/App.dart';
-import 'package:moonfm/config/AppTheme.dart';
-import 'package:moonfm/models/Mock.dart';
 import 'package:moonfm/models/PodcastItem.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:moonfm/redux/actions/player.dart';
+import 'package:moonfm/redux/main.dart';
+import 'package:moonfm/redux/states/main.dart';
+import 'package:moonfm/redux/view_models/player.dart';
 import 'package:moonfm/widgets/cover_widget.dart';
 import 'package:moonfm/widgets/play_bar_widget.dart';
 import 'package:moonfm/widgets/player_list_widget.dart';
 import 'package:moonfm/widgets/player_slider_widget.dart';
+import 'package:redux/redux.dart';
 
 class PlayerPage extends StatefulWidget {
   PlayerPage();
@@ -20,78 +23,63 @@ class PlayerPage extends StatefulWidget {
 }
 
 class PlayerPageState extends State<PlayerPage> {
-  double sliderValue = 0.0;
   AudioPlayer audioPlayer;
-  int duration = 0;
-  int playedDuration = 0;
-  bool isPlaying = false;
-  List<PodcastItem> playlist;
-
-  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     audioPlayer = Applicaton.audioPlayer;
     audioPlayer.durationHandler = (Duration d) {
-      setState(() {
-        isPlaying = true;
-        duration = d.inSeconds;
-      });
+      StoreContainer.global.dispatch(UpdateDuration(payload: d.inSeconds));
     };
     audioPlayer.positionHandler = (Duration d) {
-      setState(() {
-        playedDuration = d.inSeconds;
-        sliderValue = d.inSeconds / duration;
-      });
+      StoreContainer.global
+          .dispatch(UpdatePlayedDuration(payload: d.inSeconds));
     };
-
-    audioPlayer.completionHandler = () {
-      setState(() {
-        isPlaying = false;
-      });
-    };
+    audioPlayer.completionHandler = () {};
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(AppTheme.bloc.systemUiOverlayStyle);
-    final first = Mock.playlist.first;
     return Scaffold(
         appBar: AppBar(
-          brightness:
-              AppTheme.bloc.systemUiOverlayStyle == SystemUiOverlayStyle.light
-                  ? Brightness.dark
-                  : Brightness.light,
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           iconTheme: IconThemeData(color: Colors.lightBlue),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: ListView(
-            children: <Widget>[
-              CoverWidget(
-                title: first.subtitle,
-                cover: first.cover,
-              ),
-              PlayerSliderWidget(
-                value: sliderValue,
-                duraton: duration,
-                played: playedDuration,
-              ),
-              SizedBox(
-                height: 16.0,
-              ),
-              PlayBarWidget(
-                showCover: false,
-                onPlay: onPlay,
-                onNext: onNext,
-                onRewind: onRewind,
-                isPlaying: false,
-              ),
-              PlaylistWidget(Mock.playlist),
-            ],
+          child: StoreConnector<ReduxState, PlayerViewModel>(
+            converter: (Store<ReduxState> store) => PlayerViewModel(store),
+            builder: (BuildContext context, PlayerViewModel vm) {
+              return ListView(
+                children: <Widget>[
+                  CoverWidget(
+                    title: vm.playing.subtitle,
+                    cover: vm.playing.cover,
+                  ),
+                  PlayerSliderWidget(
+                      value: vm.progress,
+                      duraton: vm.duration,
+                      played: vm.playedDuration),
+                  SizedBox(
+                    height: 16.0,
+                  ),
+                  PlayBarWidget(
+                    playing: vm.playing,
+                    showCover: false,
+                    onPlay: (PodcastItem item) =>
+                        onPlay(item: item, isPlaying: vm.isPlaying),
+                    onNext: onNext,
+                    onRewind: onRewind,
+                    isPlaying: vm.isPlaying,
+                  ),
+                  PlaylistWidget(
+                    playlist: vm.playlist,
+                  ),
+                ],
+              );
+            },
           ),
         ));
   }
@@ -104,26 +92,14 @@ class PlayerPageState extends State<PlayerPage> {
     super.dispose();
   }
 
-  void onPlay() async {
+  void onPlay({PodcastItem item, bool isPlaying}) async {
     if (isPlaying) {
-      int result = await audioPlayer.pause();
-      if (result == 1) {
-        print("pause..");
-        setState(() {
-          isPlaying = false;
-        });
-      }
+      await audioPlayer.pause();
+      StoreContainer.global.dispatch(UpdatePlayerState(payload: false));
       return;
     }
 
-    if (playlist == null || playlist.length < 1) {
-      return;
-    }
-    final playItem = playlist[_currentIndex];
-    int result = await audioPlayer.play(playItem.audioUrl);
-    if (result == 1) {
-      print("playing..");
-    }
+    await audioPlayer.play(item.audioUrl);
   }
 
   void onNext() async {}

@@ -28,13 +28,8 @@ class SearchPageState extends State<SearchPage>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(AppTheme.bloc.systemUiOverlayStyle);
     return Scaffold(
       appBar: AppBar(
-          brightness:
-              AppTheme.bloc.systemUiOverlayStyle == SystemUiOverlayStyle.light
-                  ? Brightness.dark
-                  : Brightness.light,
           backgroundColor: Theme.of(context).backgroundColor,
           elevation: .0,
           title: Text(

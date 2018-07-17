@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:moonfm/config/AppColors.dart';
 
 class AppTheme {
-  static final bloc = Bloc();
   static ThemeData buildThemeData({Themes theme}) {
     final isDark = theme != Themes.light;
 
@@ -54,26 +51,9 @@ class AppTheme {
           body1: TextStyle(
               fontSize: 12.0, color: textColor, fontWeight: FontWeight.bold),
           body2: TextStyle(
-              fontSize: 14.0, color: textColor, fontWeight: FontWeight.w400),
+              fontSize: 14.0, color: textColor, fontWeight: FontWeight.w500),
         ));
   }
-}
-
-class Bloc {
-  final StreamController<Themes> _themeController = StreamController<Themes>();
-  Themes _theme;
-  SystemUiOverlayStyle _systemUiOverlayStyle = SystemUiOverlayStyle.dark;
-  void changeTheme(Themes theme) {
-    _theme = theme;
-    _systemUiOverlayStyle = theme == Themes.light
-        ? SystemUiOverlayStyle.dark
-        : SystemUiOverlayStyle.light;
-    _themeController.add(theme);
-  }
-
-  get themeStream => _themeController.stream;
-  get isDarkMode => _theme == Themes.dark;
-  get systemUiOverlayStyle => _systemUiOverlayStyle;
 }
 
 enum Themes {

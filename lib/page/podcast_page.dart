@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/models/Mock.dart';
 
 class PodcastPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(AppTheme.bloc.systemUiOverlayStyle);
     return Card(
       color: Colors.transparent,
       elevation: 0.0,

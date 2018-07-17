@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:moonfm/config/App.dart';
 import 'package:moonfm/config/AppTheme.dart';
+import 'package:moonfm/redux/main.dart';
 
 class FloatingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = AppTheme.bloc.isDarkMode;
+    final bool isDarkMode = StoreContainer.global.state.app.theme != Themes.light ;
     final color =
         isDarkMode ? Color(0xff243444) : Theme.of(context).backgroundColor;
     final List<BoxShadow> shadow = isDarkMode

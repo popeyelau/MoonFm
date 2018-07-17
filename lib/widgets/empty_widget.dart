@@ -7,22 +7,23 @@ class EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 150.0,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(
-              Icons.code,
+              Icons.inbox,
               color: Colors.grey,
-              size: 64.0,
+              size: 44.0,
             ),
             SizedBox(
               height: 8.0,
             ),
             Text(
               description,
-              style: TextStyle(fontSize: 18.0, color: Colors.grey),
+              style: TextStyle(fontSize: 14.0, color: Colors.grey),
             )
           ],
         ),

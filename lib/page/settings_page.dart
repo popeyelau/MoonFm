@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:moonfm/config/AppTheme.dart';
 import 'package:moonfm/models/Mock.dart';
 import 'package:moonfm/models/RowItem.dart';
+import 'package:moonfm/redux/actions/home.dart';
+import 'package:moonfm/redux/main.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(AppTheme.bloc.systemUiOverlayStyle);
     return Scaffold(
         appBar: AppBar(
-          brightness:
-              AppTheme.bloc.systemUiOverlayStyle == SystemUiOverlayStyle.light
-                  ? Brightness.dark
-                  : Brightness.light,
           iconTheme: Theme.of(context).iconTheme,
           elevation: 0.0,
           title: Text(
@@ -44,7 +40,8 @@ class SettingsPage extends StatelessWidget {
                       onTap: () {
                         final theme =
                             i.contains("White") ? Themes.light : Themes.dark;
-                        AppTheme.bloc.changeTheme(theme);
+                        StoreContainer.global
+                            .dispatch(UpdateTheme(payload: theme));
                         Navigator.of(context).pop();
                       },
                       child: Container(

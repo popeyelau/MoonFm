@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moonfm/models/Mock.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:moonfm/models/RowItem.dart';
+import 'package:moonfm/redux/states/main.dart';
+import 'package:moonfm/redux/view_models/home.dart';
 import 'package:moonfm/widgets/podcast_item_widget.dart';
+import 'package:redux/redux.dart';
 
 class PodcastListWidget extends StatelessWidget {
   final Function onSelected;
@@ -10,22 +13,28 @@ class PodcastListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemExtent: 90.0,
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return PodcastItemWidget(
-            item: Mock.home[index],
-            index: index,
-            onPress: () {
-              onSelected(Mock.home[index]);
-            },
-          );
-        },
-        itemCount: Mock.home.length,
-      ),
+    return StoreConnector<ReduxState, HomeViewModel>(
+      converter: (Store<ReduxState> store) => HomeViewModel(store),
+      builder: (BuildContext context, HomeViewModel vm) {
+        final podcasts = vm.podcasts;
+        return ListView.builder(
+          itemExtent: 90.0,
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          itemBuilder: (context, index) {
+            final podcast = podcasts[index];
+            return PodcastItemWidget(
+              item: podcasts[index],
+              index: index,
+              onPress: () => onSelected(podcast),
+              onAdd: () => vm.addToList(podcast),
+              onDownload: () => vm.addToDownload(podcast),
+              onFavorite: () => vm.addToFavorite(podcast),
+            );
+          },
+          itemCount: vm.podcasts.length,
+        );
+      },
     );
   }
 }

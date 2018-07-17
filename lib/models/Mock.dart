@@ -312,13 +312,15 @@ class Mock {
 
   static final List<HomeBar> homeBanners = [
     HomeBar(
-        title: "Subscriptions",
-        icon: Icons.subscriptions,
-        iconColor: Colors.blue),
+      title: "Subscriptions",
+      icon: Icons.subscriptions,
+      iconColor: Colors.blue,
+    ),
     HomeBar(
-        title: "Downloads",
-        icon: Icons.cloud_download,
-        iconColor: Colors.green),
+      title: "Downloads",
+      icon: Icons.cloud_download,
+      iconColor: Colors.green,
+    ),
     HomeBar(title: "Favorites", icon: Icons.favorite, iconColor: Colors.yellow),
     HomeBar(title: "History", icon: Icons.access_time, iconColor: Colors.blue)
   ];

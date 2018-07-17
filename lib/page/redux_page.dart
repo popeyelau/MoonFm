@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moonfm/models/Mock.dart';
-import 'package:moonfm/redux/actions/player.dart';
 import 'package:moonfm/redux/states/main.dart';
 import 'package:moonfm/redux/view_models/player.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -9,7 +8,7 @@ import 'package:redux/redux.dart';
 class ReduxPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<ReduxState, PlayerViewModel>(
+    return StoreConnector<ReduxState, PlayerViewModel>(
       converter: (Store<ReduxState> store) => PlayerViewModel(store),
       builder: (BuildContext context, PlayerViewModel vm) {
         return Scaffold(
@@ -27,18 +26,9 @@ class ReduxPage extends StatelessWidget {
               )
             ],
           ),
-          floatingActionButton: StoreConnector<ReduxState, VoidCallback>(
-            converter: (store) {
-              return () {
-                // store.dispatch(UpdateDuration(payload: 2));
-                store.dispatch(AddToList(payload: Mock.playlist.first));
-              };
-            },
-            builder: (context, callback) {
-              return FloatingActionButton(
-                  child: Icon(Icons.add), onPressed: callback);
-            },
-          ),
+          floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => vm.addToList(Mock.playlist.first)),
         );
       },
     );
